@@ -10,3 +10,6 @@ Pillow
 numpy
 torch>=2.0.0
 gdown
+torchvision
+pycocotools
+onnxruntime

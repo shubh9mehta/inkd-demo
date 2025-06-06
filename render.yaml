@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: inkd-mockup-app
+    env: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SYSTEM_ENV
+        value: production

@@ -27,10 +27,6 @@ Thumbs.db
 # ---- Output/Generated Folders ----
 output/                      # Your generated mockups and PDFs
 cache/                       # Temporary pickle files from SAM
-*.pdf
-*.png
-*.jpg
-*.jpeg
 
 # ---- Segment Anything Extras (Unneeded for deployment) ----
 demo/

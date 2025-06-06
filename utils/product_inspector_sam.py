@@ -3,12 +3,26 @@ import pickle
 import cv2
 import numpy as np
 import torch
+import gdown 
+
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
 
+# Path to model
 sam_checkpoint = "models/sam_vit_b_01ec64.pth"
+
+# Auto-download from Google Drive if not present
+if not os.path.exists(sam_checkpoint):
+    os.makedirs("models", exist_ok=True)
+    file_id = "1KwMOXdhOUb4zyiew1S2lIkQ6Jw6MNb5u"
+    url = f"https://drive.google.com/uc?id={file_id}"
+    print("Downloading SAM model from Google Drive...")
+    gdown.download(url, sam_checkpoint, quiet=False)
+
+# Load SAM model
 sam = sam_model_registry["vit_b"](checkpoint=sam_checkpoint)
 sam.to("cpu")
 
+# Initialize mask generator
 mask_generator = SamAutomaticMaskGenerator(
     model=sam,
     points_per_side=16,
@@ -39,11 +53,9 @@ def get_sam_cache_path(image_path):
 
 def get_sam_bounding_box_and_angle(image_path):
     cache_path = get_sam_cache_path(image_path)
-    # Try to load cache first
     if os.path.exists(cache_path):
         with open(cache_path, "rb") as f:
             result = pickle.load(f)
-            # box, angle, mask are stored
             return result['box'], result['angle']
     
     image = cv2.imread(image_path)
@@ -71,17 +83,11 @@ def get_sam_bounding_box_and_angle(image_path):
 
         box = (x, y, x + w, y + h)
         box = clamp_box_within(image.shape, box)
-        # Save all info
-        result = {
-            "box": box,
-            "angle": angle,
-            "mask": seg,  # Save the mask if needed for future features
-        }
+        result = {"box": box, "angle": angle, "mask": seg}
         with open(cache_path, "wb") as f:
             pickle.dump(result, f)
         return box, angle
 
-    # Fallback (no mask found)
     box_size = int(min(width, height) * 0.3)
     x1 = (width - box_size) // 2
     y1 = (height - box_size) // 2

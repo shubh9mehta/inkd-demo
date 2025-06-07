@@ -1,4 +1,5 @@
 import os
+os.environ["STREAMLIT_WATCHER_TYPE"] = "none"
 import streamlit as st
 from utils.pdf_generator import generate_pdf
 from PIL import Image

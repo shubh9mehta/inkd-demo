@@ -12,7 +12,4 @@ torch>=2.0.0
 gdown
 torchvision
 pycocotools
-onnxruntime
-torchvision
-pycocotools
 datetime

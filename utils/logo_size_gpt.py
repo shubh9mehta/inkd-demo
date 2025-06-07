@@ -37,7 +37,7 @@ Output only valid JSON with the following format:
 """
 
     response = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a visual branding AI."},
             {"role": "user", "content": prompt}

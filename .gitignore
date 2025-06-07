@@ -58,3 +58,9 @@ LICENSE                      # (from SAM repo)
 .*
 !.gitignore
 models/sam_vit_b_01ec64.pth
+
+# Ignore all files inside output/previews
+output/previews/*
+
+# But keep the folder itself
+!output/previews/.gitkeep

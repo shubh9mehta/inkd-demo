@@ -1,6 +1,11 @@
-/* Import Montserrat from Google Fonts */
+/* -------------------------------------
+   🖋️ Import Montserrat Font
+------------------------------------- */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900&display=swap');
 
+/* -------------------------------------
+   🌐 Theme Colors and Shadows
+------------------------------------- */
 :root {
   --inkd-navy: #1a4053;
   --inkd-green: #b0d235;
@@ -14,20 +19,28 @@
   --inkd-shadow: 0 4px 32px 0 rgba(34, 55, 70, 0.11);
 }
 
-/* General font and background */
+/* -------------------------------------
+   🔤 Base Styling
+------------------------------------- */
 body, .stApp {
   background-color: var(--inkd-bg) !important;
   font-family: 'Montserrat', 'Inter', Arial, sans-serif;
   color: var(--inkd-navy);
 }
 
-/* Custom header bar */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* -------------------------------------
+   🧭 Header
+------------------------------------- */
 .custom-header-bar {
   background: var(--inkd-navy);
   color: #fff;
   width: 100%;
   padding: 22px 0 12px 0;
-  border-top: 8px solid var(--inkd-green);
+  border-top: 32px solid var(--inkd-green);
   margin-bottom: 42px;
   border-radius: 0 0 32px 32px;
   box-shadow: var(--inkd-shadow);
@@ -35,26 +48,34 @@ body, .stApp {
 
 .custom-header-bar h1 {
   font-family: 'Montserrat', Arial, sans-serif;
-  color: #fff;
   font-weight: 900;
   font-size: 2.8rem;
   letter-spacing: -1.5px;
-  margin: 0 0 6px 0;
   text-align: center;
   text-transform: uppercase;
   line-height: 1.1;
+  margin: 0 0 6px 0;
 }
 
 .custom-header-bar .subtitle {
-  color: #eaf3f8;
   font-size: 1.13rem;
   font-weight: 500;
   text-align: center;
   margin-bottom: 0;
+  color: #eaf3f8;
   letter-spacing: 0.02em;
 }
 
-/* Buttons */
+/* -------------------------------------
+   🔘 Buttons
+------------------------------------- */
+.stButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 500px;
+}
 .stButton > button {
   background: var(--inkd-btn);
   color: var(--inkd-navy);
@@ -64,18 +85,21 @@ body, .stApp {
   padding: 0.8em 2.2em;
   margin: 14px 0;
   font-size: 1.1rem;
-  transition: background 0.18s, transform 0.08s;
-  box-shadow: 0 2px 16px rgba(34,55,70,0.07);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  box-shadow: 0 2px 16px rgba(34,55,70,0.07);
+  transition: background 0.18s, transform 0.08s;
 }
 .stButton > button:hover {
   background: var(--inkd-btn-hover);
-  color: var(--inkd-navy);
-  transform: translateY(-2px) scale(1.04);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 4px 20px rgba(34, 55, 70, 0.15);
 }
 
-/* Main content "cards" */
+/* -------------------------------------
+   🗂️ Main Card Wrapper
+------------------------------------- */
+
 .block-container {
   background: var(--inkd-card);
   border-radius: 36px;
@@ -85,47 +109,40 @@ body, .stApp {
   margin-bottom: 2.5rem;
 }
 
-/* Text inputs and selects */
-.stTextInput > div > div > input,
-.stSelectbox > div > div > select {
-  border: 2.2px solid var(--inkd-navy);
-  border-radius: 8px;
-  font-size: 1.07rem;
+
+/* -------------------------------------
+   📝 Input Field (Centered w/Label)
+------------------------------------- */
+.stTextInput {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+  width: 100%;
+  max-width: 500px;
+}
+.stTextInput > div {
+  width: 100% !important;
+  max-width: 500px !important;
+}
+.stTextInput input {
+  border: 2px solid var(--inkd-navy) !important;
+  border-radius: 12px !important;
+  padding: 0.6em 1em !important;
+  font-size: 1.05rem !important;
+  background-color: #f4f7fc !important;
+}
+.stTextInput label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
   color: var(--inkd-text);
-  background: #f4f7fc;
-  padding: 0.6em 1em;
-  box-shadow: 0 1px 8px rgba(26,64,83,0.03);
+  text-align: center;
 }
 
-/* Section headers, subheaders */
-.stMarkdown h2, .stMarkdown h3, .stSubheader, .stHeading {
-  color: var(--inkd-navy) !important;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: 900 !important;
-  font-size: 1.45rem !important;
-  margin-top: 2.1em !important;
-  margin-bottom: 1em !important;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  line-height: 1.12;
-}
-
-/* All Streamlit status/info text */
-.stMarkdown, .stSuccess, .stInfo, .stWarning, .stError, .stText, .stAlert, .stSpinner {
-  color: var(--inkd-navy) !important;
-  font-family: 'Montserrat', Arial, sans-serif;
-}
-
-/* Streamlit alerts, success, etc. */
-.stAlert > div, .stSpinner {
-  color: var(--inkd-navy) !important;
-  font-weight: 700;
-  border-radius: 16px;
-  background: #f4f9f6;
-  border: 1.2px solid #e3efc7;
-}
-
-/* Card images */
+/* -------------------------------------
+   🖼️ Image Styling
+------------------------------------- */
 img, .stImage img {
   background: #fff !important;
   border-radius: 32px !important;
@@ -135,8 +152,107 @@ img, .stImage img {
   object-fit: contain !important;
   margin-bottom: 16px;
 }
+.stImage img:hover {
+  transform: scale(1.05) rotate(0.4deg);
+  border-color: var(--inkd-green);
+  box-shadow: 0 8px 28px rgba(40, 56, 80, 0.25) !important;
+  transition: transform 0.3s ease;
+}
 
-/* Misc tweaks for playfulness/clarity */
+/* -------------------------------------
+   🗂️ Section Headers
+------------------------------------- */
+.stMarkdown h2, .stSubheader {
+  color: var(--inkd-navy) !important;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 900 !important;
+  font-size: 1.45rem !important;
+  margin-top: 2.1em !important;
+  margin-bottom: 1em !important;
+  text-transform: uppercase;
+  text-align: center !important;
+  letter-spacing: 0.01em;
+  line-height: 1.12;
+}
+
+/* -------------------------------------
+   📦 Multiselect + PDF Download Area
+------------------------------------- */
+.stMultiSelect, .stDownloadButton, .stMarkdown p {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.stMultiSelect:hover {
+  box-shadow: 0 2px 12px rgba(26, 64, 83, 0.08);
+}
+.stDownloadButton button:hover {
+  transform: scale(1.03) rotate(-0.4deg);
+  box-shadow: 0 4px 20px rgba(34, 55, 70, 0.12);
+}
+[data-testid="stDownloadButton"] {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* -------------------------------------
+   ⬇️ Expander (Upload Section)
+------------------------------------- */
+.stExpander > summary {
+  justify-content: center !important;
+  text-align: center !important;
+  font-weight: 600;
+  font-size: 1.03rem;
+}
+
+/* Center the subheader for PDF selection */
+.stMarkdown h3, .stMarkdown h2.stSubheader {
+  text-align: center !important;
+}
+
+/* Center the multiselect and download section */
+[data-testid="stMultiselect"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+  text-align: center;
+}
+
+[data-testid="stDownloadButton"] {
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+}
+/* -------------------------------------
+   ✅ Alerts, Status, and Misc
+------------------------------------- */
+.stMarkdown, .stSuccess, .stInfo, .stWarning, .stError, .stText, .stAlert, .stSpinner {
+  color: var(--inkd-navy) !important;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.stAlert > div, .stSpinner {
+  font-weight: 700;
+  border-radius: 16px;
+  background: #f4f9f6;
+  border: 1.2px solid #e3efc7;
+}
+
+/* -------------------------------------
+   💡 Hyperlinks
+------------------------------------- */
+a, .stMarkdown a {
+  color: var(--inkd-green);
+  font-weight: 600;
+  text-decoration: underline;
+}
+a:hover, .stMarkdown a:hover {
+  color: var(--inkd-btn-hover);
+}
+
+/* -------------------------------------
+   🔧 Misc. Utility Classes
+------------------------------------- */
 hr {
   border: none;
   border-top: 2px solid var(--inkd-green);
@@ -144,23 +260,15 @@ hr {
   opacity: 0.18;
 }
 
-a, .stMarkdown a {
-  color: var(--inkd-green);
-  font-weight: 600;
-  text-decoration: underline;
-  transition: color 0.12s;
-}
-a:hover, .stMarkdown a:hover {
-  color: var(--inkd-btn-hover);
-}
-
-/* Remove unnecessary Streamlit left border for cleaner look */
+/* Remove Streamlit sidebar border */
 [data-testid="stSidebar"] {
   box-shadow: none !important;
   border-right: 2px solid var(--inkd-border) !important;
 }
 
-/* Responsive adjustments */
+/* -------------------------------------
+   📱 Responsive (Mobile)
+------------------------------------- */
 @media (max-width: 900px) {
   .block-container {
     border-radius: 20px;

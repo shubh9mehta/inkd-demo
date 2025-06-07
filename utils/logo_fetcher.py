@@ -15,27 +15,34 @@ client = OpenAI(api_key=api_key)
 
 def resolve_company_to_domain_gpt(user_input):
     """
-    Use GPT to resolve a company name (or typo) to the official website domain.
+    Use GPT to resolve any company-related input into its official website domain.
     """
     prompt = (
-        f"You are an AI that returns the **official website domain** for real companies. "
-        f"If the input is already a domain or URL, check if the domain is valid, and if not, return the correct domain. "
-        f"If the input is already a domain or URL and is valid, output just the domain. "
-        f"If the input is a misspelled or incomplete company name, return the correct domain. "
-        f"If the input is a product name, return the domain of the company that makes the product. "
-        f"If there is is random or no information, return 'inkdstores.com'. "
-        f"ALWAYS return ONLY the domain (like 'netflix.com', not the full URL), and nothing else.\n\n"
-        f"Input: {user_input}\nDomain:"
+        "You are an AI assistant that returns only the official website domain (e.g., 'netflix.com') "
+        "for real-world companies or brands based on the user's input.\n\n"
+        "Instructions:\n"
+        "- If the input is already a valid domain or URL, return the domain part only (e.g., 'apple.com').\n"
+        "- If the input is a company name, return the official website domain.\n"
+        "- If the input has a typo (e.g., 'gogl' instead of 'Google'), infer the correct company and return its domain.\n"
+        "- If the input is a product name (e.g., 'iPhone'), return the domain of the company that owns it (e.g., 'apple.com').\n"
+        "- If the input is a **descriptive phrase** (e.g., 'fun, bold merch brand'), return the domain of a real company that matches that description.\n"
+        "- If you cannot determine the company confidently, default to 'inkdstores.com'.\n\n"
+        "IMPORTANT:\n"
+        "- ALWAYS return ONLY the bare domain name (e.g., 'nike.com') — no explanation, no extra text, no http/https, and no subdomains.\n\n"
+        f"Input: {user_input}\n"
+        "Domain:"
     )
+
     resp = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You answer with only the correct website domain."},
+            {"role": "system", "content": "You return only the official domain name of the company, and nothing else."},
             {"role": "user", "content": prompt}
         ],
         max_tokens=25,
         temperature=0
     )
+
     text = resp.choices[0].message.content.strip()
     # Sanity: only domain, no protocol/extra text
     text = text.replace("https://", "").replace("http://", "").split("/")[0]

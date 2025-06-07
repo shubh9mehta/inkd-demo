@@ -1,5 +1,8 @@
 import os
+
+# Disable Streamlit's file watcher to avoid PyTorch crashes
 os.environ["STREAMLIT_WATCHER_TYPE"] = "none"
+os.environ["PYTHONPATH"] = "."
 import streamlit as st
 from utils.pdf_generator import generate_pdf
 from PIL import Image

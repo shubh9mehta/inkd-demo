@@ -1,8 +1,4 @@
 import os
-
-# Disable Streamlit's file watcher to avoid PyTorch crashes
-os.environ["STREAMLIT_WATCHER_TYPE"] = "none"
-os.environ["PYTHONPATH"] = "."
 import streamlit as st
 from utils.pdf_generator import generate_pdf
 from PIL import Image
@@ -10,17 +6,6 @@ import random
 from utils.logo_fetcher import fetch_logo, save_logo
 from utils.image_overlay import overlay_logo_on_product, pad_image_to_square
 import tempfile
-
-# Lazy-load models
-@st.cache_resource
-def load_sam_model():
-    from utils.product_inspector_sam import load_sam_predictor
-    return load_sam_predictor()
-
-@st.cache_resource
-def load_u2net_model():
-    from rembg import new_session
-    return new_session()
 
 st.set_page_config(page_title="Get INK'D", layout="wide")
 
@@ -39,11 +24,11 @@ st.markdown("""
 LOADING_MESSAGES = [
     "🎨 Generating your personalized swag...",
     "🪄 Summoning the AI design elves...",
-    "🤖 Letting our robots iron your t-shirt mockup...",
-    "🎩 Printing hats... and maybe a few dad jokes!",
+    "🪾 Letting our robots iron your t-shirt mockup...",
+    "🮢 Printing hats... and maybe a few dad jokes!",
     "🚀 Hold tight! Your brand's moment of glory is near.",
     "🤖 The AI is analyzing color vibes and logo power...",
-    "🎁 Wrapping your virtual gift box...",
+    "🏱 Wrapping your virtual gift box...",
     "☕ Time for a coffee? We’ll be quick!"
 ]
 
@@ -89,14 +74,11 @@ if generate_clicked and company_input:
             ]
 
             st.session_state.mockup_paths = []
-            sam_model = load_sam_model()
-            u2net_session = load_u2net_model()
-
             for product_path in product_paths:
                 filename = os.path.basename(product_path)
                 output_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_mockup.png")
                 try:
-                    overlay_logo_on_product(product_path, "output/logo_raw.png", output_path, sam_model, u2net_session)
+                    overlay_logo_on_product(product_path, "output/logo_raw.png", output_path)
                     st.session_state.mockup_paths.append((filename, output_path))
                 except Exception as e:
                     st.error(f"Error processing {filename}: {e}")
@@ -113,9 +95,7 @@ with st.expander("Want to try your own product image? Click Here!"):
             filename = os.path.basename(custom_input_path)
             output_path = f"output/previews/custom_{filename}"
             try:
-                sam_model = load_sam_model()
-                u2net_session = load_u2net_model()
-                overlay_logo_on_product(custom_input_path, "output/logo_raw.png", output_path, sam_model, u2net_session)
+                overlay_logo_on_product(custom_input_path, "output/logo_raw.png", output_path)
                 st.session_state.mockup_paths.append((f"Custom - {filename}", output_path))
                 st.success("🧵 Your custom product has joined the mockup parade!")
             except Exception as e:

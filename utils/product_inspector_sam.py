@@ -99,3 +99,6 @@ def get_sam_bounding_box_and_angle(image_path):
 def get_sam_bounding_box(image_path):
     box, _ = get_sam_bounding_box_and_angle(image_path)
     return box
+
+def load_sam_predictor():
+    return mask_generator

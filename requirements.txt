@@ -13,3 +13,4 @@ gdown
 torchvision
 pycocotools
 datetime
+onnxruntime
